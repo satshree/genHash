@@ -30,7 +30,7 @@ while True:
         else:
             dir=os.path.dirname(os.path.realpath(__file__))
 
-        input("Press Enter to select a file to generate hash.\n")
+        input("Press Enter to select a file to generate hash.")
         file_path = askopenfilename(initialdir=dir)
 
         if not file_path:
@@ -41,12 +41,16 @@ while True:
             else:
                 continue
     except KeyboardInterrupt:
-        print("\n\n>> Exiting \n\n")
+        print("\n>> Exiting \n")
         exit(0)
 
     try:
         with open(file_path, 'rb') as bin:
+            print("-" * 100)
+            print("Unpacking the contents of the file ... ")
             contents = bin.read()
+            print("-" * 100)
+            print("Generating md5 hash ... ")
             hash = hashlib.md5(contents)
 
             # for contents in iter(lambda: bin.read(4096)):
@@ -68,7 +72,7 @@ while True:
     hash_value = hash.hexdigest()
     print("File '{}' Hash:".format(file_name))
     print("")
-    print(hash_value)
+    print(">>>", hash_value, "<<<")
     print("")
     pyperclip.copy(hash_value)
-    print("Hash value copied to clipboard.\n")
+    print("Hash value copied to clipboard.")
